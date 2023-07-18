@@ -1,18 +1,40 @@
 /** @type {import('tailwindcss').Config} */
+
+/*Plugin is used in MainPage Card */
+const plugin = require("tailwindcss/plugin");
+
+const myClass = plugin(function ({ addUtilities }) {
+	addUtilities({
+		".my-rotate-y-180": {
+			transform: "rotateY(180deg)",
+		},
+		".preserve-3d": {
+			transformStyle: "preserve-3d",
+		},
+		".perspective": {
+			perspective: "1000px",
+		},
+		".backface-hidden": {
+			backfaceVisibility: "hidden",
+		},
+	});
+});
+
 module.exports = {
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
-  theme: {
-    extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
-    },
-  },
-  plugins: [],
-}
+	darkMode: ["class", '[data-mode="dark"]'],
+	content: [
+		"./app/**/*.{js,ts,jsx,tsx}",
+		"./pages/**/*.{js,ts,jsx,tsx}",
+		"./components/**/*.{js,ts,jsx,tsx}",
+		"./sections/**/*.{js,ts,jsx,tsx}",
+	],
+	theme: {
+		extend: {
+			animation: {
+				"spin-slow": "spin 13s linear infinite",
+				"ping-slow": "bounce 1s linear infinite",
+			},
+		},
+	},
+	plugins: [myClass],
+};
